@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+        }
+        .output{
+            height: 300px;
+            width: 400px;
+            border: 2px solid black;
+        }
+        .btn{
+            height: 40px;
+            width: 70px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div style="margin-left: 20px;">
+        <div class="output" id="output"></div>
+        <button class="btn" id="button">Request</button>
+    </div>
+    <form action="http://localhost:3000/signup" method="post" style="padding: 20px;">
+        Name:<br><input name="Name" type="text"><br>
+        Age:<br><input name="Number" type="number"><br>
+        Email:<br><input name="Email" type="email"><br>
+        Active Status:<br><input name="ActiveStatus" type="text"><br>
+        InfoDirectroy:<br><input name="InfoDirectory" type="text"><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+<script>
+    let obj;
+    const btn = document.querySelector("#button")
+    btn.addEventListener('click', async ()=>{
+        const response = await fetch("http://localhost:3000/users")
+        const data = await response.text()
+        obj = JSON.parse(data);
+        let len = Object.keys(obj).length;
+        for(i = 0; i < len; i++){
+
+            let index = Object.keys(obj)[i];
+            document.getElementById("output").innerHTML += `${obj[index][0].Name} </br>`;
+        }
+        
+    })
+
+    
+</script>
+</html>
